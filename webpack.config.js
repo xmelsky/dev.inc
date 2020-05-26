@@ -46,7 +46,9 @@ module.exports = (env) => ({
   },
   plugins: [
     new CleanWebpackPlugin(),
-    new HtmlWebpackPlugin(),
+    new HtmlWebpackPlugin({
+      template: './src/index.html',
+    }),
     new CopyWebpackPlugin({
       patterns: [{
         from: './src/assets/images/',
