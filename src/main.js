@@ -1,9 +1,14 @@
 /* eslint-disable no-param-reassign */
-import { getLocalStorage, setLocalStorageItem } from './js/utils/localStorage';
-import actions, { createId, getTodoHTML } from './js/utils/actions';
+import { getLocalStorage } from './js/utils/localStorage';
+import actions, { getTodoHTML } from './js/utils/actions';
 
 const currentTasks = document.getElementById('currentTasks');
 const completedTasks = document.getElementById('completedTasks');
+
+const colors = getLocalStorage('colors') || {};
+
+document.body.style.backgroundColor = colors.bg;
+document.body.style.color = colors.color;
 
 let activeTasks = {};
 let inactiveTasks = {};
@@ -53,6 +58,10 @@ function render(todos) {
     completedTasks.innerHTML = '<li class="list-group-item d-flex w-100 mb-2">There is no completed tasks yet</li>';
   }
 
+  const appColors = getLocalStorage('colors') || {};
+  const form = document.getElementById('app-colors');
+  form.elements[0].value = appColors.bg;
+  form.elements[1].value = appColors.color;
 }
 
 document.addEventListener('click', (e) => {
@@ -77,6 +86,9 @@ document.addEventListener('click', (e) => {
           return render();
         case 'sort':
           sorted = actions[button.dataset.action](button.dataset.direction);
+          return render(sorted);
+        case 'color':
+          sorted = actions[button.dataset.action](button.closest('form'));
           return render(sorted);
 
         default:

@@ -23,7 +23,7 @@ export function getTodoHTML({
         create('h5', 'mb-1', title, null, ['style', `color: ${color}`]),
         create('div', 'mb-1', [
           create('small', 'mr-2', priority),
-          create('small', '', `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes()}
+          create('small', '', `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}
            ${date.getDate().toString().padStart(2, '0')}.${date.getMonth().toString().padStart(2, '0')}.${date.getFullYear()}`),
         ]),
       ]),
@@ -155,6 +155,15 @@ function sortTasks(direction) {
   return [activeArray, completeArray];
 }
 
+function changeColor(form) {
+  const colors = getLocalStorage('app-colors') || {};
+  colors.bg = form.elements[0].value;
+  colors.color = form.elements[1].value;
+  document.body.style.backgroundColor = colors.bg;
+  document.body.style.color = colors.color;
+  setLocalStorageItem('colors', colors);
+}
+
 export default {
   save: saveTask,
   edit: editTask,
@@ -162,4 +171,5 @@ export default {
   add: addTask,
   delete: deleteTask,
   sort: sortTasks,
+  color: changeColor,
 };

@@ -37,9 +37,21 @@
                     <button class="btn btn-primary" type="button" id="dropdownMenuSettings" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-cog" aria-hidden="true"></i>
                     </button>
-                    <div class="dropdown-menu p-2 dropdown-menu-right" aria-labelledby="dropdownMenuSettings">
-                        You should add settings here
-                    </div>
+                    <form id='app-colors' class="dropdown-menu p-2 dropdown-menu-right" aria-labelledby="dropdownMenuSettings">
+                        <div class="form-group row">
+                            <label for="inputText" class="col-sm-2 col-form-label" style="font-size: 12px;">App background color</label>
+                            <div class="col-sm-10">
+                                <input type="color" class="form-control" id="bg-color" name="color" value="">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputText" class="col-sm-2 col-form-label" style="font-size: 12px;">Text color</label>
+                            <div class="col-sm-10">
+                                <input type="color" class="form-control" id="text-color" name="color" value="">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary" data-action="color">Apply</button>
+                    </form>
                 </div>
             </div>
         </nav>
