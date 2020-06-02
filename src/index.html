@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<!-- saved from url=(0036)http://devincubator.by/valleyp2.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <script src="./js/font-awesome.js" crossorigin="anonymous"></script><link rel="stylesheet" href="./css/free.min.css" media="all"><link rel="stylesheet" href="./css/free-v4-font-face.min.css" media="all"><link rel="stylesheet" href="./css/free-v4-shims.min.css" media="all">
+    <style>
+    .wrapper {
+        min-height: calc(100vh - 15px);
+        margin: 15px auto 0;
+    }
+    input[type="color"] {
+        cursor: pointer;
+    }
+    input#color {
+        width: 85px;
+    }
+    </style>
+    <title>LogicPart</title>
+</head>
+<body>
+    <div class="container-fluid wrapper">
+        <nav class="navbar navbar-light bg-light">
+            <h1>MyToDoList</h1>
+            <div class="d-flex">
+                <button type="button" class="btn btn-primary mx-2" data-action='sort' data-direction="asc"><i class="fas fa-sort-numeric-up-alt" aria-hidden="true"></i></button>
+                <button type="button" class="btn btn-primary" data-action='sort' data-direction="desc"><i class="fas fa-sort-numeric-up" aria-hidden="true"></i></button>
+            </div>
+            <div class="d-flex">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                    <i class="fas fa-plus" aria-hidden="true"></i>
+                    Add task
+                </button>
+                <div class="dropdown ml-2">
+                    <button class="btn btn-primary" type="button" id="dropdownMenuSettings" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-cog" aria-hidden="true"></i>
+                    </button>
+                    <div class="dropdown-menu p-2 dropdown-menu-right" aria-labelledby="dropdownMenuSettings">
+                        You should add settings here
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <div class="row justify-content-center">
+            <div class="col-10">
+                <h3 id="todo-title" class="my-2">ToDo<span></span></h3>
+                <ul class="list-group flex-wrap justify-content-between" id="currentTasks">
+                </ul>
+                <hr>
+                <h3 id="completed-title" class="my-2">Comleted<span></span></h3>
+                <ul class="list-group flex-wrap justify-content-between" id="completedTasks">
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <form class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="add-task">Add task</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group row">
+                            <label for="inputTitle" class="col-sm-2 col-form-label">Title</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="inputTitle" placeholder="Title" required="">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputText" class="col-sm-2 col-form-label">Text</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="inputText" placeholder="Text" required="">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputText" class="col-sm-2 col-form-label">Choose color</label>
+                            <div class="col-sm-10">
+                                <input type="color" class="form-control" id="color" name="color" value="#000000">
+                            </div>
+                        </div>
+                        <fieldset class="form-group" id="gridRadios">
+                            <div class="row">
+                                <legend class="col-form-label col-sm-2 pt-0">Priority</legend>
+                                <div class="col-sm-10">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="gridRadios" id="Low" value="Low" required="">
+                                        <label class="form-check-label" for="Low">
+                                            Low
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="gridRadios" id="Medium" value="Medium">
+                                        <label class="form-check-label" for="Medium">
+                                            Medium
+                                        </label>
+                                    </div>
+                                    <div class="form-check disabled">
+                                        <input class="form-check-input" type="radio" name="gridRadios" id="High" value="High">
+                                        <label class="form-check-label" for="High">
+                                            High
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <div class="form-group row">
+                            <div class="col-sm-12 text-center">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="resetForm(event);">Close</button>
+                                <button type="submit" class="btn btn-primary" data-action="add">Add task</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </form>
+    </div>
+
+     <!-- Modal -->
+     <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <form id="edit-form" class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="edit-task">Edit task</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group row">
+                            <label for="inputTitle" class="col-sm-2 col-form-label">Title</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="inputTitle2" placeholder="Title" required="">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputText" class="col-sm-2 col-form-label">Text</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="inputText2" placeholder="Text" required="">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputText" class="col-sm-2 col-form-label">Choose color</label>
+                            <div class="col-sm-10">
+                                <input type="color" class="form-control" id="color" name="color" value="#000000">
+                            </div>
+                        </div>
+                        <fieldset class="form-group" id="gridRadios2">
+                            <div class="row">
+                                <legend class="col-form-label col-sm-2 pt-0">Priority</legend>
+                                <div class="col-sm-10">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="gridRadios2" data-id="Low" id="Low2" value="Low" required="">
+                                        <label class="form-check-label" for="Low2">
+                                            Low
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="gridRadios2" data-id="Medium" id="Medium2" value="Medium">
+                                        <label class="form-check-label" for="Medium2">
+                                            Medium
+                                        </label>
+                                    </div>
+                                    <div class="form-check disabled">
+                                        <input class="form-check-input" type="radio" name="gridRadios2" data-id="High" id="High2" value="High">
+                                        <label class="form-check-label" for="High2">
+                                            High
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <div class="form-group row">
+                            <div class="col-sm-12 text-center">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="resetForm(event);">Close</button>
+                                <button type="submit" class="btn btn-primary" data-action="save">Save task</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="./js/popper.min.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+    <script src="./main.js"></script>
+    <script>
+        function resetForm({target}) {
+            target.closest('form').reset();
+        }
+    </script>
+</body></html>
